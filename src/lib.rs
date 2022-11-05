@@ -7,91 +7,53 @@ use near_sdk::serde::{Serialize, Deserialize};
 
 #[near_bindgen]
 #[derive(BorshDeserialize, BorshSerialize, PanicOnDefault)]
-pub struct Consultations {
-    consultations: UnorderedMap<String, Consultation>
+pub struct Drug {
+    drug: UnorderedMap<String, Drug>
 }
 
 #[near_bindgen]
-impl Consultations {
+impl Drug {
     
     #[init]
     pub fn init() -> Self {
         Self {
-            consultations: UnorderedMap::new(b"consultations".to_vec()),
+            drug: UnorderedMap::new(b"drug".to_vec()),
         }
     }
 
  
-    pub fn set_consultation(&mut self, payload: Payload) {
-        require!(self.consultations.get(&payload.id).is_none(), format!("a consultation with {} already exists", payload.id));
-        let consult = Consultation::from_payload(payload);
-        self.consultations.insert(&consult.id, &consult);
+    pub fn set_drug(&mut self, payload: Payload) {
+        require!(self.drug.get(&payload.id).is_none(), format!("a drug with {} already exists", payload.id));
+        let drug = Drug::from_payload(payload);
+        self.drug.insert(&drug.id, &drug);
     }
 
-    pub fn get_consultation(self, id: &String) -> Option<Consultation> {
-        self.consultations.get(id)
+    pub fn get_drug(self, id: &String) -> Option<Drug> {
+        self.drug.get(id)
     }
 
   
-    pub fn get_consultation_history(self) -> Vec<Consultation> {
-        self.consultations.values_as_vector().to_vec()
+    pub fn get_drug_list(self) -> Vec<Drug> {
+        self.drug.values_as_vector().to_vec()
     }
 }
 
 #[near_bindgen]
 #[derive(Serialize, Deserialize, PanicOnDefault)]
 pub struct Payload {
-    id: String,
-    patient_id: String,
-    user_id: String,
-    consultation_notes: String,
-    treatment_plan: String,
-    decision: String,
-    dressing_request: String,
-    nursing_request: String,
-    nursing_request_status: String,
-    facility_id: String,
-    created_at: String,
-    treatment_plan_status: String,
-    treated_by: String,
+    
 }
 
 
 #[near_bindgen]
 #[derive(BorshSerialize, BorshDeserialize, Serialize, PanicOnDefault)]
-pub struct Consultation {
-    id: String,
-    patient_id: String,
-    user_id: String,
-    consultation_notes: String,
-    treatment_plan: String,
-    decision: String,
-    dressing_request: String,
-    nursing_request: String,
-    nursing_request_status: String,
-    facility_id: String,
-    created_at: String,
-    treatment_plan_status: String,
-    treated_by: String,
-    owner: AccountId,
+pub struct Drug {
+    
 }
 
-impl Consultation {
+impl Drug {
     pub fn from_payload(payload: Payload) -> Self {
         Self {
-            id: payload.id,
-            patient_id: payload.patient_id,
-            user_id: payload.user_id,
-            consultation_notes: payload.consultation_notes,
-            treatment_plan: payload.treatment_plan,
-            decision: payload.decision,
-            dressing_request: payload.dressing_request,
-            nursing_request: payload.nursing_request,
-            nursing_request_status: payload.nursing_request_status,
-            facility_id: payload.facility_id,
-            created_at: payload.created_at,
-            treatment_plan_status: payload.treatment_plan_status,
-            treated_by: payload.treated_by,
             owner: env::signer_account_id()
         }
     }
