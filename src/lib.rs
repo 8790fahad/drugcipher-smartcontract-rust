@@ -29,7 +29,7 @@ impl Drug {
     }
 
     pub fn get_drug(self, id: &String) -> Option<Drug> {
-        self.drug.get(id)
+        self.drug.get(id);
     }
 
   
@@ -41,7 +41,22 @@ impl Drug {
 #[near_bindgen]
 #[derive(Serialize, Deserialize, PanicOnDefault)]
 pub struct Payload {
-    
+    id:String;
+    manufcturer_name:String,
+    sole_agent : String,
+    drug_brand_name:String,
+    generic_name:String,
+    drug_strength:String,
+    formulation_type:String,
+    unit_packaging:String,
+    nafdac_number:String,
+    lot_number:String,
+    date_manufacture:String,
+    expiry_date:String,
+    company_id:String,
+    status:bool,
+    remarks:String,
+    authorize_marketers:String
 }
 
 
@@ -54,7 +69,23 @@ pub struct Drug {
 impl Drug {
     pub fn from_payload(payload: Payload) -> Self {
         Self {
-            owner: env::signer_account_id()
+            owner: env::signer_account_id(),
+            id:payload.id,
+            manufcturer_name:payload.manufcturer_name,
+            sole_agent : payload.sole_agent,
+            drug_brand_name:payload.drug_brand_name,
+            generic_name:payload.generic_name,
+            drug_strength:payload.drug_strength,
+            formulation_type:payload.formulation_type,
+            unit_packaging:payload.unit_packaging,
+            nafdac_number:payload.nafdac_number,
+            lot_number:payload.lot_number,
+            date_manufacture:payload.date_manufacture,
+            expiry_date:payload.expiry_date,
+            company_id:payload.company_id,
+            status:payload.status,
+            remarks:payload.remarks,
+            authorize_marketers:payload.authorize_marketers,
         }
     }
 
