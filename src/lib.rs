@@ -1,5 +1,6 @@
 use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
 use near_sdk::collections::{UnorderedMap};
+use near_sdk::json_types::U128;
 use near_sdk::{env, near_bindgen, AccountId, PanicOnDefault, Promise};
 use near_sdk::serde::{Serialize, Deserialize};
 // Promise
@@ -44,12 +45,18 @@ impl DrugCipher {
         }
     }
     }
+    // delete drug infomation 
+    pub fn delete_drug_info(&mut self, id: &String) {
+        self.drug_listed.remove(id);
+    }
     pub fn view_drug_info(&self, id: &String) -> Option<DrugInfo> {
-        // let amount: u128 = 1000000000000000000000;
-        // let account_id: AccountId = beneficiary_id.parse().unwrap();
-        // DrugInfo::pay_token(near_sdk::json_types::U128(amount),account_id);
         self.drug_listed.get(id)
+    }
 
+    // claim your tokens
+    #[payable]
+    pub fn claim_token(amount: U128, to: AccountId) -> Promise {
+        Promise::new(to).transfer(amount.0)
     }
 }
 
@@ -57,7 +64,7 @@ impl DrugCipher {
 #[derive(Serialize, Deserialize, PanicOnDefault)]
 pub struct Payload {
     id:String,
-    manufcturer_name:String,
+    manufacturer_name:String,
     sole_agent : String,
     drug_brand_name:String,
     generic_name:String,
@@ -79,7 +86,7 @@ pub struct Payload {
 pub struct DrugInfo {
     owner: AccountId,
     id:String,
-    manufcturer_name:String,
+    manufacturer_name:String,
     sole_agent : String,
     drug_brand_name:String,
     generic_name:String,
@@ -101,7 +108,7 @@ impl DrugInfo {
     pub fn from_payload(payload: Payload) -> Self {
         Self {
             id:payload.id,
-            manufcturer_name:payload.manufcturer_name,
+            manufacturer_name:payload.manufacturer_name,
             sole_agent : payload.sole_agent,
             drug_brand_name:payload.drug_brand_name,
             generic_name:payload.generic_name,
@@ -119,9 +126,6 @@ impl DrugInfo {
             owner: env::signer_account_id()
         }
     }
-    // pub fn pay_token(amount: U128, to: AccountId) -> Promise {
-    //     Promise::new(to).transfer(amount.0)
-    // }
     pub fn recall_drug(&mut self,remark: String) {
         self.status = 1;
         self.remark = remark;
