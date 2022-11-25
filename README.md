@@ -55,5 +55,5 @@ location on their web interface.</p>
 
 <h2>Repositories</h2>
 <p>https://github.com/8790fahad/drug-cipher-mobile</p>
-<p></p>
+<p>https://github.com/ysquareimperial/drug-cipher</p>
 
