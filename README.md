@@ -44,9 +44,11 @@ location on their web interface.</p>
 <img src="https://res.cloudinary.com/dx5ilizca/image/upload/v1669375287/DrugCipher-Web_App_flexoq.png" alt="DrugCipher Web App Arch.">
 
 <h2>How to use DrugCipher Mobile App</h2>
+<p>Click the link below to download the app</p>
+<p>https://drive.google.com/u/0/uc?id=1ItCyUgC4QYclN3CyV-qBd179bhzQE9Z3&export=download</p>
 <p>DrugCipher Mobile app allow users to scan drug and claim token as a reward.</p>
 <ol>
-<li>Go to playstore and search for DrugCipher</li>
+<li>Click the link above and download the app.</li>
 <li>Download and install it.</li>
 <li>Click the scan button.</li>
 <li>Grab your drug and scan the QR Code placed on it.</li>
@@ -54,6 +56,8 @@ location on their web interface.</p>
 </ol>
 
 <h2>Repositories</h2>
-<p>https://github.com/8790fahad/drug-cipher-mobile</p>
 <p>https://github.com/ysquareimperial/drug-cipher</p>
+<p>https://github.com/8790fahad/drug-cipher-mobile</p>
+<p>https://github.com/8790fahad/drug-cipher-mobile</p>
+
 
